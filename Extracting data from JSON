@@ -1,0 +1,13 @@
+import json
+import urllib.request, urllib.parse, urllib.error
+total = 0
+
+url = input('Enter URL: ')
+data = urllib.request.urlopen(url).read().decode()
+
+info = json.loads(data)
+number = info["comments"] #getting list of all the dictinaries
+for i in number: #in each dictionary...
+    needed = i.get('count') #... we are getting numbers from "count"
+    total = total + int(needed) #summ all the numbers
+print(total)
