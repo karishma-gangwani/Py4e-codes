@@ -1,0 +1,18 @@
+import urllib.request, urllib.parse, urllib.error
+import xml.etree.ElementTree as ET
+import ssl
+url = 'http://py4e-data.dr-chuck.net/comments_1100183.xml'
+# Ignore SSL certificate errors
+ctx = ssl.create_default_context()
+ctx.check_hostname = False
+ctx.verify_mode = ssl.CERT_NONE
+
+fhand = urllib.request.urlopen(url)
+data = fhand.read()
+sum = 0
+stuff = ET.fromstring(data)
+lst = stuff.findall('comments/comment')
+for item in lst:
+    x= int(item.find('count').text)
+    sum = sum + x
+print (sum)
